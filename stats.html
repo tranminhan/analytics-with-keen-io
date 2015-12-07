@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Analytics 101</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/jumbotron.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet"> 
+
+    <!-- [][][][][][][][][] Install Analytics Library Here! [][][][][][][][][][][] -->
+    <script src="https://d26b395fwzu5fz.cloudfront.net/3.3.0/keen.min.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">What a nice website!</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 id="mainHeader">Stats!</h1>
+        <p>Here are some data points.</p>
+      </div>
+    </div>
+    
+    <!-- LOOK HERE! I've made three placeholders for your charts in the container below. -->
+    <!-- You do not need to write any code in this section. Use the <script> section below. -->
+    <!-- You will reference these placeholders by div id when you use Javascript to generate the charts. -->
+    
+    <div class ="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="chart1"></div> <!-- LOOK HERE! It's a placeholder for a new chart. -->
+        </div>
+        <div class="col-md-6">
+          <div id="chart2"></div> <!-- LOOK HERE! It's a placeholder for a new chart. -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="chart3"></div> <!-- LOOK HERE! It's a placeholder for a new chart. -->
+        </div>  
+      </div>
+    </div> 
+
+    
+    <script type="text/javascript" charset="utf-8">
+    
+    // LOOK HERE! This is where you will need to write the code to draw the charts using the Keen IO charting library.
+      var client = new Keen({
+        projectId: "5659bae2672e6c472c8ca6be",
+        readKey: "ae85b733a0f2ae2010b279cc3b6073a55c5d940c09d8e0a313ca9587e74fda8742963fbc44f1129e300fc17d048a94e5f835d20eabcff501413438969979dd05ad21870d7a8c7143c687ce868c9fc68d6f060b9815b0f8b26cb3c1c778e61ee76ee841f423a8d4d7b0f59703bae03778"    // required for doing analysis
+      });
+
+      Keen.ready(function(){ // This function executes once the page is fully loaded
+        // [] [] Item 1 [] [] [] [] [] [] [] [] [] [] [] [] 
+        // The first widget here is almost finished. Just insert your collection name and it should work.
+        // This is a counter for the total number of button clicks (all time running total).
+       var metric1 = new Keen.Query("count", {
+          eventCollection: "engagements",
+          timeframe: "this_30_days"
+        });
+        
+        client.draw(metric1, document.getElementById("chart1"), {  // 
+          title: "Total engagements all time"
+        });
+        
+        var query = new Keen.Query("count", {
+          eventCollection: "engagements",
+          interval: "daily",
+          timeframe: "this_14_days",
+          timezone: "UTC"
+        });
+        
+        client.draw(query, document.getElementById("chart2"), {
+          title: "engagements by day"
+        });
+        
+        // [] [] Item 2 [] [] [] [] [] [] [] [] [] [] [] [] 
+        // Find the total number of engagements sorted by header
+        // Draw it as a PieChart
+        // Reference Keen IO Javascript Reference Docs to find out how to do this
+
+
+        
+        // [] [] Item 3 [] [] [] [] [] [] [] [] [] [] [] [] 
+        // Find the total number of engagements over time
+        // Reference Keen IO Javascript Reference Docs to find out how to do this
+
+      
+      });
+      
+    </script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
